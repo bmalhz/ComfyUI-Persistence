@@ -47,6 +47,8 @@ You need to create the `persistence.json` file into your ComfyUI `user` director
 
 **bank_name** — used verbatim as the root folder name for this bank.
 
+*Note: `bank_name` and `bank_id` are sanitized (based on running platform) to build the resulting `bank_path`, unwanted characters are replaced with `_`.*
+
 #### Notes and edge cases
 - **JSON encoding**: the fingerprint depends on the exact JSON encoding. Different encoders or formatting (for example, key order in objects) may produce different fingerprints for semantically identical values. Use a canonical JSON encoder if stable folder names are required.
 - **Collisions**: SHA-256 collisions are extremely unlikely; no special collision handling is implemented.

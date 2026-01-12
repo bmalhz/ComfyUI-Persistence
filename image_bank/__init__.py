@@ -5,6 +5,7 @@ import hashlib
 import logging
 from typing import Dict, List, Any
 from pathlib import Path
+from pathvalidate import sanitize_filepath
 
 
 BANK_CONF_FILE = "image_banks.json"
@@ -142,7 +143,8 @@ def get_bank_path(cache_path: str, bank_name: str, bank_id):
     :param bank_id: id of the bank
     """
     fingerprint = get_bank_fingerprint(bank_id=bank_id)
-    return os.path.join(cache_path, bank_name, fingerprint)
+
+    return sanitize_filepath(os.path.join(cache_path, bank_name, fingerprint), platform="auto", replacement_text="_")
 
 
 def get_banks(cache_path: str) -> List[str]:
