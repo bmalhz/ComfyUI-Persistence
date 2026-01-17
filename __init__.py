@@ -19,14 +19,14 @@ if not ("pytest" in sys.modules or "PYTEST_CURRENT_TEST" in os.environ):
     }
 
     NODE_DISPLAY_NAME_MAPPINGS = {
-        "PersistLoadImage": "PersistLoadImage",
-        "PersistTransferColors": "PersistTransferColors",
-        "PersistSteppedImageBank": "PersistSteppedImageBank",
-        "PersistVideoSettings": "PersistVideoSettings",
-        "PersistImageBank": "PersistImageBank",
+        "PersistLoadImage": "[Persist] LoadImage",
+        "PersistTransferColors": "[Persist] TransferColors",
+        "PersistSteppedImageBank": "[Persist] SteppedImageBank",
+        "PersistVideoSettings": "[Persist] VideoSettings",
+        "PersistImageBank": "[Persist] ImageBank",
     }
 
-WEB_DIRECTORY = os.path.join(os.path.dirname(__file__), "web", "js")
+WEB_DIRECTORY = os.path.join(os.path.dirname(__file__), "web")
 
 
 def web_directory():
