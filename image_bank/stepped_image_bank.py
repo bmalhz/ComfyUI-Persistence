@@ -53,7 +53,6 @@ class PersistSteppedImageBank(PersistImageBank):
                 "cache_name": (cache_names,),
                 "bank_name": ("STRING", {"default": _BANK_NAME_PLACEHOLDER}),
                 "enable_write": ("BOOLEAN", {"default": True}),
-                "forced_bank": (banks,)
             },
             "optional": {
                 "bank_id": (IO.ANY,),
@@ -90,12 +89,7 @@ class PersistSteppedImageBank(PersistImageBank):
         :param bank_id: Bank id or configuration parameters
         :param previous_series: Previous steps if any
         """
-        forced_bank = kwargs.get("forced_bank", "NONE")
-
-        if forced_bank != "NONE":
-            bank_name, bank_id = forced_bank.split("/")
-        else:
-            bank_name, bank_id = self._get_bank_settings(kwargs.get("bank_name"), kwargs.get("bank_id"), kwargs.get("previous_series"))
+        bank_name, bank_id = self._get_bank_settings(kwargs.get("bank_name"), kwargs.get("bank_id"), kwargs.get("previous_series"))
 
         return PersistImageBank.check_lazy_status(
             self,
@@ -111,7 +105,6 @@ class PersistSteppedImageBank(PersistImageBank):
         cache_name: str,
         bank_name: str,
         enable_write: bool,
-        forced_bank: str,
         bank_id=None,
         images: Optional[torch.Tensor] = None,
         previous_series: Optional[List[Dict]] = None
@@ -127,18 +120,12 @@ class PersistSteppedImageBank(PersistImageBank):
         :param bank_id: id of this bank, can be a string of any Json encodable dict
         :param enable_write: enable writing
         :type enable_write: bool
-        :param forced_bank: id of the bank to force if any
-        :type forced_bank: str
         :param images: input images if any
         :type images: Optional[torch.Tensor]
         :param previous_series: previous series if any
         :type previous_series: Optional[List[Dict]]
         """
-        if forced_bank != "NONE":
-            # force bank
-            bank_name, bank_id = forced_bank.split("/")
-        else:
-            bank_name, bank_id = self._get_bank_settings(bank_name, bank_id, previous_series)
+        bank_name, bank_id = self._get_bank_settings(bank_name, bank_id, previous_series)
 
         pstBankOutput = PersistImageBank.process(
             self=self,
